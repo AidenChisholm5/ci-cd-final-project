@@ -1,33 +1,40 @@
-Run nosetests -v --with-spec --spec-color --with-coverage --cover-package=app
+CI workflow completed successfully
 
-nose.config: INFO: Ignoring files matching ['^\\.', '^_', '^setup\\.py$']
-nose.plugins.cover: INFO: Coverage report will include only packages: ['service', 'app']
+Set up job
+Status: Success
 
-REST API Server Tests
+Initialize containers
+Status: Success
 
-- It should Create a counter
-- It should not Create a duplicate counter
-- It should Delete a counter
-- It should be healthy
-- It should call the index call
-- It should List counters
-- It should Read a counter
-- It should Update a counter
-- It should not Update a missing counter
+Checkout
+Status: Success
 
-/usr/local/lib/python3.9/site-packages/coverage/inorout.py:519: CoverageWarning: Module app was never imported. (module-not-imported)
-  self.warn(f"Module {pkg} was never imported.", slug="module-not-imported")
+Install dependencies
+Status: Success
+Commands:
+python -m pip install --upgrade pip
+pip install -r requirements.txt
 
-Name                             Stmts   Miss  Cover   Missing
---------------------------------------------------------------
-service/__init__.py                  8      0   100%
-service/common/log_handlers.py      11      1    91%   37
-service/common/status.py            45      0   100%
-service/routes.py                   48      0   100%
---------------------------------------------------------------
-TOTAL                              112      1    99%
+Lint with flake8
+Status: Success
+Commands:
+flake8 service --count --select=E9,F63,F7,F82 --show-source --statistics
+flake8 service --count --max-complexity=10 --max-line-length=127 --statistics
 
-----------------------------------------------------------------------
-Ran 9 tests in 0.152s
+Run unit tests with nose
+Status: Success
+Command:
+nosetests -v --with-spec --spec-color --with-coverage --cover-package=app
 
+Ran 9 tests
 OK
+Total coverage: 99%
+
+Post Checkout
+Status: Success
+
+Stop containers
+Status: Success
+
+Complete job
+Status: Success
